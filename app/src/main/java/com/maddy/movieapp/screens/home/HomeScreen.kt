@@ -22,13 +22,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.maddy.movieapp.data.MovieLocalDataSource
 import com.maddy.movieapp.model.Movie
-import com.maddy.movieapp.model.getMovies
 import com.maddy.movieapp.navigation.MovieScreens
 import com.maddy.movieapp.ui.theme.MovieAppTheme
 import com.maddy.movieapp.widgets.MovieRow
 
-val movieList: List<Movie> = getMovies()
+val movieList: List<Movie> = MovieLocalDataSource.getMovies()
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -79,7 +79,7 @@ fun MainContent(navController: NavController, movieList: List<Movie>) {
         LazyColumn {
             items(items = movieList) {
                 MovieRow(movie = it) { movieId ->
-                    // Remember to add forward slash "/" to your route, bcoz this is like a WebLink.
+                    // Remember to add forward slash "/" to your route, because this is like a WebLink.
                     // if "/" is not included in link then it will throw a IllegalArgumentException,
                     navController.navigate(route = MovieScreens.DetailsScreen.name + "/" + movieId)
                 }

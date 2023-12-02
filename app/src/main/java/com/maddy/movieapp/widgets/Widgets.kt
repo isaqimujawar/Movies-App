@@ -43,12 +43,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.maddy.movieapp.data.MovieLocalDataSource
 import com.maddy.movieapp.model.Movie
-import com.maddy.movieapp.model.getMovies
 
 @Preview(name = "movie-row")
 @Composable
-fun MovieRow(movie: Movie = getMovies()[0], onItemClick: (String) -> Unit = {}) {
+fun MovieRow(movie: Movie = MovieLocalDataSource.getMovies()[0], onItemClick: (String) -> Unit = {}) {
     val clickedState = remember { mutableStateOf(false) }
     var enabled by remember { mutableStateOf(false) }
 

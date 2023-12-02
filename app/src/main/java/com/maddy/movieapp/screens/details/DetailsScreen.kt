@@ -38,14 +38,15 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.maddy.movieapp.R
+import com.maddy.movieapp.data.MovieLocalDataSource
 import com.maddy.movieapp.model.Movie
-import com.maddy.movieapp.model.getMovies
 import com.maddy.movieapp.ui.theme.MovieAppTheme
 import com.maddy.movieapp.widgets.MovieRow
 
 @Composable
 fun DetailsScreen(navController: NavController, movieId: String?) {
-    val newMovieList = getMovies().filter { it.id == movieId }
+    //val newMovieList = getMovies().filter { it.id == movieId }
+    val newMovieList = MovieLocalDataSource.getMovies().filter { it.id == movieId }
     MovieAppTheme {
         Scaffold(
             topBar = {
@@ -75,6 +76,7 @@ private fun MovieDetails(modifier: Modifier = Modifier, movie: Movie) {
             Divider(Modifier.padding(8.dp))
             Text(text = stringResource(R.string.movie_images))
             HorizontalScrollableImages(movie)
+            Text(text = stringResource(R.string.images_of_spider_man))
             LocalDiskImages()
         }
     }
@@ -111,7 +113,7 @@ private fun LocalDiskImages() {
             Card(
                 modifier = Modifier
                     .padding(12.dp)
-                    .size(120.dp),
+                    .size(240.dp),
                 elevation = CardDefaults.cardElevation(4.dp)
             ) {
                 AsyncImage(
@@ -119,7 +121,7 @@ private fun LocalDiskImages() {
                         .data(R.drawable.spiderman)
                         .crossfade(true)
                         .build(),      // if build() is not called on Builder() then causes a crash.
-                    contentDescription = "Local Storage Movie Images",
+                    contentDescription = stringResource(R.string.local_movie_images),
                     contentScale = ContentScale.Crop
                 )
             }
